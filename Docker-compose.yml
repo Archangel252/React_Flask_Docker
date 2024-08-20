@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  server:
+    build: server
+    command: ["flask", "run", "--host=0.0.0.0"]
+    volumes:
+      - ./server:/backend
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+
+  client:
+    build: client
+    command: ["npm", "start"]
+    volumes:
+      - ./client:/frontend
+      - node-modules:/frontend/node_modules
+    environment:
+      - NODE_ENV=development
+    ports:
+      - '3000:3000'
+    depends_on:
+      - server
+    networks:
+      - app-network
+
+volumes:
+  node-modules:
+
+networks:
+  app-network:
+    driver: bridge

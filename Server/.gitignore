@@ -1,0 +1,49 @@
+# Python specific #
+###################
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+bin/
+var/
+*.manifest
+*.spec
+
+# Installer logs #
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtualenv #
+.venv/
+env/
+venv/
+ENV/
+venv.bak/
+venv.bak.tar.gz
+
+# Flask-specific #
+instance/
+.webassets-cache
+*.log
+
+# Coverage reports #
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# PyCharm #
+.idea/
+
+# VS Code #
+.vscode/
