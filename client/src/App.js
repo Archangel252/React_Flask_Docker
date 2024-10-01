@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     // Fetch data from the Flask server
-    fetch('http://localhost:5000/connect')
+    fetch('http://localhost:8080/connect')
       .then(response => response.json())
       .then(data => {
         setServerMessage(data.message); // Assuming the Flask endpoint returns a JSON with a "message" field

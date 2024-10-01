@@ -1,0 +1,27 @@
+# Use the official Node.js image
+FROM node:18-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the package.json and package-lock.json
+COPY ./client/package.json ./client/package-lock.json ./
+
+# Install the app dependencies
+RUN npm install
+
+# Copy the rest of the app's source code
+COPY ./client/src ./src
+COPY ./client/public ./public
+
+# Build the React app for production
+RUN npm run build
+
+# Use a lightweight server to serve the build files
+RUN npm install -g serve
+
+# Set the command to run the app
+CMD ["serve", "-s", "build"]
+
+# Expose the port that the app runs on
+EXPOSE 3000

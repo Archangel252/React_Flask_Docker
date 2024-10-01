@@ -1,37 +1,20 @@
-version: '3'
-
 services:
   server:
-    build: server
-    command: ["flask", "run", "--host=0.0.0.0"]
-    volumes:
-      - ./server:/backend
-    environment:
-      - FLASK_ENV=development
-      - FLASK_APP=app.py
-    ports:
-      - "5000:5000"
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    image: react-flask-app-server
     networks:
       - app-network
-
   client:
-    build: client
-    command: ["npm", "start"]
-    volumes:
-      - ./client:/frontend
-      - node-modules:/frontend/node_modules
-    environment:
-      - NODE_ENV=development
-    ports:
-      - '3000:3000'
-    depends_on:
-      - server
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    image: react-flask-app-client
     networks:
       - app-network
-
-volumes:
-  node-modules:
-
+    ports:
+      - "3000:3000"
 networks:
   app-network:
     driver: bridge
