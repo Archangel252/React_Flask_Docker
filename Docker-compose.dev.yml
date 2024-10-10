@@ -1,0 +1,33 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server.dev
+    image: template-app-server-dev
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    stop_signal: SIGINT
+    volumes:
+      - ./Server:/app
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client.dev
+    image: template-app-client-dev
+    networks:
+      - app-network
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app   
+      - /app/node_modules  
+
+networks:
+  app-network:
+    driver: bridge

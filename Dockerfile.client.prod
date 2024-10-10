@@ -1,0 +1,26 @@
+FROM node:18-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json before other files
+# to leverage Docker cache and speed up build
+COPY ./client/package.json ./client/package-lock.json ./
+
+# Install the app dependencies
+RUN npm install
+
+# Copy the rest of the app's source code
+COPY ./client/ ./
+
+# Build the app
+RUN npm run build
+
+# Install serve to serve the app
+RUN npm install -g serve
+
+# Expose the port
+EXPOSE 3000
+
+# Command to serve the app
+CMD ["serve", "-s", "build"]
